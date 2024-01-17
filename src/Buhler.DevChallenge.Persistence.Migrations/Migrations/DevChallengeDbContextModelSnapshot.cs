@@ -25,10 +25,7 @@ namespace Buhler.DevChallenge.Persistence.Migrations.Migrations
             modelBuilder.Entity("Buhler.DevChallenge.Domain.MobileFoodFacilities.MobileFoodFacility", b =>
                 {
                     b.Property<long>("LocationId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("LocationId"));
 
                     b.Property<string>("Address")
                         .IsRequired()

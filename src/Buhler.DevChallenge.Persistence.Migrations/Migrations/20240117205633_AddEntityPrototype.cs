@@ -15,8 +15,7 @@ namespace Buhler.DevChallenge.Persistence.Migrations.Migrations
                 name: "MobileFoodFacilities",
                 columns: table => new
                 {
-                    LocationId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LocationId = table.Column<long>(type: "bigint", nullable: false),
                     FacilityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LocationDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),

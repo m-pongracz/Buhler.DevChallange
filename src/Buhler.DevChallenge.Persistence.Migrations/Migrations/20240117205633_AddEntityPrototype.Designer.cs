@@ -12,7 +12,7 @@ using NetTopologySuite.Geometries;
 namespace Buhler.DevChallenge.Persistence.Migrations.Migrations
 {
     [DbContext(typeof(DevChallengeDbContext))]
-    [Migration("20240117201518_AddEntityPrototype")]
+    [Migration("20240117205633_AddEntityPrototype")]
     partial class AddEntityPrototype
     {
         /// <inheritdoc />
@@ -28,10 +28,7 @@ namespace Buhler.DevChallenge.Persistence.Migrations.Migrations
             modelBuilder.Entity("Buhler.DevChallenge.Domain.MobileFoodFacilities.MobileFoodFacility", b =>
                 {
                     b.Property<long>("LocationId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("LocationId"));
 
                     b.Property<string>("Address")
                         .IsRequired()

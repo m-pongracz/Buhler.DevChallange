@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Buhler.DevChallenge.Integration\Buhler.DevChallenge.Integration.csproj" />
-      <ProjectReference Include="..\Buhler.DevChallenge.Persistence\Buhler.DevChallenge.Persistence.csproj" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
     </ItemGroup>
-    
+
 </Project>

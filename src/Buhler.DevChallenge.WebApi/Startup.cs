@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Buhler.DevChallenge.Application;
+using Buhler.DevChallenge.Integration;
 using Buhler.DevChallenge.Persistence;
 
 namespace Buhler.DevChallenge.WebApi;
@@ -30,6 +31,8 @@ public class Startup
         services.AddPersistence();
         
         services.AddApplicationServices();
+        
+        services.AddIntegrationServices();
     }
 
     public void Configure(IApplicationBuilder app, IHostEnvironment env)

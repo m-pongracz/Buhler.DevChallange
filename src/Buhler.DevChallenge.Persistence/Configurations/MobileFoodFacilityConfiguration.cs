@@ -9,5 +9,6 @@ public class MobileFoodFacilityConfiguration : IEntityTypeConfiguration<MobileFo
     public void Configure(EntityTypeBuilder<MobileFoodFacility> builder)
     {
         builder.HasKey(x => x.LocationId);
+        builder.Property(x => x.LocationId).ValueGeneratedNever();
     }
 }

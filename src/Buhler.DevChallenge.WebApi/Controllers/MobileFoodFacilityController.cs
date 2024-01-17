@@ -37,4 +37,11 @@ public class MobileFoodFacilityController : ControllerBase
     //     return Ok(quizes.Select(QuizMetadataDto.Create));
     // }  
     
+    [HttpPost]
+    public async Task<ActionResult> RefreshData()
+    {
+        await _mobileFoodFacilityService.RefreshDataAsync();
+        
+        return Ok();
+    }  
 }
