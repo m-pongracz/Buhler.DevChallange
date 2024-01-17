@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Buhler.DevChallenge.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Buhler.DevChallenge.WebApi.Controllers.MobileFoodFacilityController">
+            <summary>
+            Quizes controller.
+            </summary>
+        </member>
+        <member name="T:Buhler.DevChallenge.WebApi.Dtos.PagingRequestDto">
+            <summary>
+            Paging request DTO
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.PagingRequestDto.PageNumber">
+            <summary>
+            PageNumber to load. 1-indexed. Default is 1.
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.PagingRequestDto.PageSize">
+            <summary>
+            Page size. Default is 100.
+            </summary>
+        </member>
+    </members>
+</doc>
