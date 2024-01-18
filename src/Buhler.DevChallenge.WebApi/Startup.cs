@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Buhler.DevChallenge.Application;
+using Buhler.DevChallenge.Application.MobileFoodFacilities;
 using Buhler.DevChallenge.Integration;
 using Buhler.DevChallenge.Persistence;
 using Buhler.DevChallenge.Persistence.Migrations;
@@ -49,12 +50,21 @@ public class Startup
         {
             endpoints.MapControllers();
         });
-        
-        using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+        OnStartAsync(app.ApplicationServices).ConfigureAwait(false).GetAwaiter().GetResult();
+    }
+
+    private static async Task OnStartAsync(IServiceProvider serviceProvider)
+    {
+        using var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
         
         var migrationService = scope.ServiceProvider.GetRequiredService<IMigrationService>();
 
-        migrationService.MigrateAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+        await migrationService.MigrateAsync();
+        
+        var mobileFoodFacilityService = scope.ServiceProvider.GetRequiredService<IMobileFoodFacilityService>();
+        
+        await mobileFoodFacilityService.RefreshDataAsync();
     }
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
