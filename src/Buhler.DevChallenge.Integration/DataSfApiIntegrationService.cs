@@ -5,25 +5,20 @@ namespace Buhler.DevChallenge.Integration;
 
 public class DataSfApiIntegrationService : IDataSfApiIntegrationService
 {
-    public DataSfApiIntegrationService()
-    {
-        
-    }
+    private const string UriString = "https://data.sfgov.org/resource/rqzj-sfat.json";
     
     public async Task<IEnumerable<MobileFoodFacilityApiDto>> GetMobileFoodFacilitiesBatchAsync(int offset, int limit)
     {
         var path = $"?$order=objectid&$limit={limit}&$offset={offset}";
         
         using var client = new HttpClient();
-        
-        client.BaseAddress = new Uri("https://data.sfgov.org/resource/rqzj-sfat.json");
+
+        client.BaseAddress = new Uri(UriString);
 
         var response = await client.GetAsync(path);
 
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new Exception("Something went wrong");
-        }
+        // TODO throw better exceptions
+        response.EnsureSuccessStatusCode();
         
         var stream = await response.Content.ReadAsStreamAsync();
 

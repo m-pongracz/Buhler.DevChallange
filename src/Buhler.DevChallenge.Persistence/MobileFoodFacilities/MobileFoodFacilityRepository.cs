@@ -26,7 +26,7 @@ public class MobileFoodFacilityRepository : EfRepositoryBase<long, MobileFoodFac
 
         if (!foodSearchString.IsNullOrEmpty())
         {
-            query = query.Where(x => x.FoodItems.Contains(foodSearchString!));
+            query = query.Where(x => x.FoodItemsSearchOptimized.Contains(foodSearchString!.ToLowerInvariant()));
         }
         
         var data = await query

@@ -46,7 +46,7 @@ public class MobileFoodFacilityController : ControllerBase
     [HttpGet("search")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<MobileFoodFacility, MobileFoodFacilityDto>))]
     public async Task<ActionResult<PagedResultDto<MobileFoodFacility, MobileFoodFacilityDto>>> 
-        SearchData([FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string food, [FromQuery] PagingRequestDto pagingRequestDto)
+        SearchData([FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string? food, [FromQuery] PagingRequestDto pagingRequestDto)
     {
         var location = new LocationFactory().CreatePoint(longitude, latitude);
         
