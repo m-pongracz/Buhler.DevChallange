@@ -38,4 +38,9 @@ public class EfRepositoryBase<TKey, TEntity> where TEntity : class
 
         return new UnsavedContext(DbContext);
     }
+
+    public void ClearChangeTracker()
+    {
+        DbContext.ChangeTracker.Clear();
+    }
 }

@@ -12,7 +12,7 @@ public class DataSfApiIntegrationService : IDataSfApiIntegrationService
     
     public async Task<IEnumerable<MobileFoodFacilityApiDto>> GetMobileFoodFacilitiesBatchAsync(int offset, int limit)
     {
-        var path = $"?$limit={limit}&$offset={offset}";
+        var path = $"?$order=objectid&$limit={limit}&$offset={offset}";
         
         using var client = new HttpClient();
         

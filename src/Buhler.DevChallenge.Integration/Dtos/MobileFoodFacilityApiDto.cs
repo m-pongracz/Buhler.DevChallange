@@ -10,25 +10,23 @@ public class MobileFoodFacilityApiDto
     }
     
     [JsonPropertyName("objectid")]
-    public string ObjectId { get; set; } = null!;
+    public string? ObjectId { get; set; }
 
     [JsonPropertyName("applicant")]
-    public string Applicant { get; set; } = null!;
+    public string? Applicant { get; set; }
+    
     [JsonPropertyName("locationdescription")]
-    public string LocationDescription { get; set; } = null!;
+    public string? LocationDescription { get; set; }
+    
     [JsonPropertyName("address")]
-    public string Address { get; set; } = null!;
-    [JsonPropertyName("fooditems")]
-    public string FoodItems { get; set; } = null!;
-    [JsonPropertyName("x")]
-    public string X { get; set; } = null!;
+    public string? Address { get; set; }
 
-    [JsonPropertyName("y")]
-    public string Y { get; set; } = null!;
+    [JsonPropertyName("fooditems")]
+    public string? FoodItems { get; set; }
 
     [JsonPropertyName("longitude")]
-    public string Longitude { get; set; } = null!;
+    public string? Longitude { get; set; }
 
     [JsonPropertyName("latitude")]
-    public string Latitude { get; set; } = null!;
+    public string? Latitude { get; set; }
 }
