@@ -391,6 +391,12 @@ namespace Buhler.DevChallenge.WebApi.Client
         [Newtonsoft.Json.JsonProperty("longitude", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public double Longitude { get; set; }
 
+        /// <summary>
+        /// When the facility data was pulled from the source
+        /// </summary>
+        [Newtonsoft.Json.JsonProperty("pulledFromSourceAt", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.DateTimeOffset PulledFromSourceAt { get; set; }
+
     }
 
     /// <summary>

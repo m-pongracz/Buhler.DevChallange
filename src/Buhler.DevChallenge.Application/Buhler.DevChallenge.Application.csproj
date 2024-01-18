@@ -10,5 +10,9 @@
       <ProjectReference Include="..\Buhler.DevChallenge.Integration\Buhler.DevChallenge.Integration.csproj" />
       <ProjectReference Include="..\Buhler.DevChallenge.Persistence\Buhler.DevChallenge.Persistence.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
+    </ItemGroup>
     
 </Project>

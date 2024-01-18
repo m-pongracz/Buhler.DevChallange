@@ -11,6 +11,7 @@ public class MobileFoodFacilityService : IMobileFoodFacilityService
     private readonly IDataSfApiIntegrationService _sfApiIntegrationService;
     private readonly IMobileFoodFacilityRepository _foodFacilityRepository;
 
+    // TODO with EFCore.BulkExtensions should be set to around 2000
     private const int RefreshBatchSize = 50;
 
     public MobileFoodFacilityService(IDataSfApiIntegrationService sfApiIntegrationService,
@@ -22,6 +23,8 @@ public class MobileFoodFacilityService : IMobileFoodFacilityService
 
     public async Task RefreshDataAsync()
     {
+        // TODO should be done in a transaction so we don't delete our data before we can save the new data
+        
         await _foodFacilityRepository.ClearAsync();
 
         for (var offset = 0;; offset += RefreshBatchSize)
@@ -29,7 +32,8 @@ public class MobileFoodFacilityService : IMobileFoodFacilityService
             var data = (await _sfApiIntegrationService.GetMobileFoodFacilitiesBatchAsync(offset, RefreshBatchSize)).ToArray();
             
             var mobileFoodFacilities = data.Where(x => x.IsValid()).Select(x => new MobileFoodFacility(x));
-
+            
+            // TODO can be done better with EFCore.BulkExtensions
             var unsavedContext = await _foodFacilityRepository.AddRangeAsync(mobileFoodFacilities);
 
             await unsavedContext.SaveChangesAsync();

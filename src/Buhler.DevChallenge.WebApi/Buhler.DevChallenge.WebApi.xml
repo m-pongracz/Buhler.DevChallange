@@ -65,6 +65,11 @@
             Facility longitude
             </summary>
         </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto.PulledFromSourceAt">
+            <summary>
+            When the facility data was pulled from the source
+            </summary>
+        </member>
         <member name="T:Buhler.DevChallenge.WebApi.Dtos.PagedResultDto`2">
             <summary>
             Paged result DTO

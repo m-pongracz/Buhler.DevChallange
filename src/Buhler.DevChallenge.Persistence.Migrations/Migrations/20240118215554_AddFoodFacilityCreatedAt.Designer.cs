@@ -4,6 +4,7 @@ using Buhler.DevChallenge.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 
@@ -12,9 +13,11 @@ using NetTopologySuite.Geometries;
 namespace Buhler.DevChallenge.Persistence.Migrations.Migrations
 {
     [DbContext(typeof(DevChallengeDbContext))]
-    partial class DevChallengeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240118215554_AddFoodFacilityCreatedAt")]
+    partial class AddFoodFacilityCreatedAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

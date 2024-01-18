@@ -42,6 +42,10 @@ public class MobileFoodFacilityDto
     /// </summary>
     public double Longitude { get; private set; }
     
+    /// <summary>
+    /// When the facility data was pulled from the source
+    /// </summary>
+    public DateTimeOffset PulledFromSourceAt { get; private set; }
     
     internal static MobileFoodFacilityDto Create(MobileFoodFacility mobileFoodFacility)
     {
@@ -53,7 +57,8 @@ public class MobileFoodFacilityDto
             Address = mobileFoodFacility.Address,
             FoodItems = mobileFoodFacility.FoodItems,
             Latitude = mobileFoodFacility.Location.Y,
-            Longitude = mobileFoodFacility.Location.X
+            Longitude = mobileFoodFacility.Location.X,
+            PulledFromSourceAt = mobileFoodFacility.CreatedAt
         };
     }
 }

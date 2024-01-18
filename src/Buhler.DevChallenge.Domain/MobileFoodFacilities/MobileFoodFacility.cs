@@ -24,7 +24,8 @@ public class MobileFoodFacility
         Address = dto.Address!;
         FoodItems = dto.FoodItems!;
         FoodItemsSearchOptimized = FoodItems.ToLowerInvariant().Replace(" ", string.Empty);
-        Location = new LocationFactory().CreatePoint(double.Parse(dto.Longitude!), double.Parse(dto.Latitude!));
+        Location = LocationUtils.CreatePoint(double.Parse(dto.Longitude!), double.Parse(dto.Latitude!));
+        CreatedAt = DateTimeOffset.UtcNow;
     }
     
     public long LocationId { get; protected init; }
@@ -34,4 +35,5 @@ public class MobileFoodFacility
     public string FoodItems { get; protected init; } = null!;
     public string FoodItemsSearchOptimized { get; protected init; } = null!;
     public Point Location { get; protected init; } = null!;
+    public DateTimeOffset CreatedAt { get; protected init; }
 }

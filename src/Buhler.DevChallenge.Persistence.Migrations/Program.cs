@@ -36,7 +36,7 @@ public class Program
                 
                 service
                     .AddHostedService<InitializationHostedService>()
-                    .AddScoped<IMigrationService, MigrationService>()
+                    .AddMigrator()
                     .AddPersistence();
             });
     

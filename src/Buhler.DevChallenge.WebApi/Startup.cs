@@ -2,6 +2,7 @@
 using Buhler.DevChallenge.Application;
 using Buhler.DevChallenge.Integration;
 using Buhler.DevChallenge.Persistence;
+using Buhler.DevChallenge.Persistence.Migrations;
 
 namespace Buhler.DevChallenge.WebApi;
 
@@ -26,21 +27,16 @@ public class Startup
             x.IncludeXmlComments("Buhler.DevChallenge.WebApi.xml");
         });
         
-        services.AddSettings(_configuration);
-        
-        services.AddPersistence();
-        
-        services.AddApplicationServices();
-        
-        services.AddIntegrationServices();
+        services
+            .AddSettings(_configuration)
+            .AddPersistence()
+            .AddIntegrationServices()
+            .AddMigrator()
+            .AddApplicationServices();
     }
 
     public void Configure(IApplicationBuilder app, IHostEnvironment env)
     {
-        // if (env.IsDevelopment())
-        // {
-        // }
-
         app.UseSwagger();
         app.UseSwaggerUI();
         
@@ -56,11 +52,9 @@ public class Startup
         
         using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
         
-        // TODO fill DB ??
-        
-        // var dbInitializer = scope.ServiceProvider.GetRequiredService<ITriviaBotDatabaseInitializer>();
-            
-        // dbInitializer.Initialize();
+        var migrationService = scope.ServiceProvider.GetRequiredService<IMigrationService>();
+
+        migrationService.MigrateAsync().ConfigureAwait(false).GetAwaiter().GetResult();
     }
 }
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

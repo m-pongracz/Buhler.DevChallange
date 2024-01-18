@@ -27,7 +27,7 @@ public class MobileFoodFacilityController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpPost("source-data/refresh")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<MobileFoodFacility, MobileFoodFacilityDto>))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult> RefreshData()
     {
         await _mobileFoodFacilityService.RefreshDataAsync();
@@ -48,7 +48,7 @@ public class MobileFoodFacilityController : ControllerBase
     public async Task<ActionResult<PagedResultDto<MobileFoodFacility, MobileFoodFacilityDto>>> 
         SearchData([FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string? food, [FromQuery] PagingRequestDto pagingRequestDto)
     {
-        var location = new LocationFactory().CreatePoint(longitude, latitude);
+        var location = LocationUtils.CreatePoint(longitude, latitude);
         
         var data = await _mobileFoodFacilityService.SearchClosestByFoodAsync(location, food, pagingRequestDto.GetPagingRequest());
         
