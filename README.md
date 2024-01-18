@@ -10,7 +10,11 @@
 ## Instructions for running the project
 
 - Run `buhler_dev_challenge_sql` `tools/local-compose.yml` to start the database 
-  - `docker-compose -f local-compose.yml up buhler_dev_challenge_sql`
+   
+```
+cd tools
+docker-compose -f local-compose.yml up buhler_dev_challenge_sql
+```
 - Use `Buhler.DevChallenge.WebApi - https` to run the API
 - Use Swagger UI to use the EPs
 - Alternatively run the integration tests in your IDE
