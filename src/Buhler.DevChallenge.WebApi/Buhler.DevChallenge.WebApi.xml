@@ -6,7 +6,85 @@
     <members>
         <member name="T:Buhler.DevChallenge.WebApi.Controllers.MobileFoodFacilityController">
             <summary>
-            Quizes controller.
+            Mobile food facilities controller
+            </summary>
+        </member>
+        <member name="M:Buhler.DevChallenge.WebApi.Controllers.MobileFoodFacilityController.RefreshData">
+            <summary>
+            Refreshes mobile food facility data from the source
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Buhler.DevChallenge.WebApi.Controllers.MobileFoodFacilityController.SearchData(System.Double,System.Double,System.String,Buhler.DevChallenge.WebApi.Dtos.PagingRequestDto)">
+            <summary>
+            Finds mobile food facilities closest to the provided location based on user's food preferences
+            </summary>
+            <param name="latitude">Latitude serving as the query's base</param>
+            <param name="longitude">Longitude serving as the query's base</param>
+            <param name="food">requested food item. e.g. "hotdog". All results are returned if omitted.</param>
+            <param name="pagingRequestDto">Paging request</param>
+            <returns>Returns an array of mobile food facilities with paging info</returns>
+        </member>
+        <member name="T:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto">
+            <summary>
+            Mobile food facility DTO
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto.LocationId">
+            <summary>
+            Location unique identifier
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto.FacilityName">
+            <summary>
+            Facility name
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto.LocationDescription">
+            <summary>
+            Description of the location of the facility
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto.Address">
+            <summary>
+            Facility address
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto.FoodItems">
+            <summary>
+            Food items served in the facility 
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto.Latitude">
+            <summary>
+            Facility latitude
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.MobileFoodFacilityDto.Longitude">
+            <summary>
+            Facility longitude
+            </summary>
+        </member>
+        <member name="T:Buhler.DevChallenge.WebApi.Dtos.PagedResultDto`2">
+            <summary>
+            Paged result DTO
+            </summary>
+            <typeparam name="TData">Domain data type</typeparam>
+            <typeparam name="TDto">DTO data type</typeparam>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.PagedResultDto`2.PageNumber">
+            <summary>
+            Page number
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.PagedResultDto`2.PageSize">
+            <summary>
+            Page size
+            </summary>
+        </member>
+        <member name="P:Buhler.DevChallenge.WebApi.Dtos.PagedResultDto`2.Data">
+            <summary>
+            Page data
             </summary>
         </member>
         <member name="T:Buhler.DevChallenge.WebApi.Dtos.PagingRequestDto">

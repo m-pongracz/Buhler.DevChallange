@@ -1,7 +1,8 @@
-﻿using Buhler.DevChallenge.Domain.MobileFoodFacilities;
+﻿using Buhler.DevChallenge.Domain;
+using Buhler.DevChallenge.Domain.MobileFoodFacilities;
 using Buhler.DevChallenge.Integration;
-using Buhler.DevChallenge.Integration.Dtos;
 using Buhler.DevChallenge.Persistence.MobileFoodFacilities;
+using NetTopologySuite.Geometries;
 
 namespace Buhler.DevChallenge.Application.MobileFoodFacilities;
 
@@ -27,7 +28,7 @@ public class MobileFoodFacilityService : IMobileFoodFacilityService
         {
             var data = (await _sfApiIntegrationService.GetMobileFoodFacilitiesBatchAsync(offset, RefreshBatchSize)).ToArray();
             
-            var mobileFoodFacilities = data.Where(IsFoodFacilityApiDtoValid).Select(x => new MobileFoodFacility(x));
+            var mobileFoodFacilities = data.Where(x => x.IsValid()).Select(x => new MobileFoodFacility(x));
 
             var unsavedContext = await _foodFacilityRepository.AddRangeAsync(mobileFoodFacilities);
 
@@ -41,18 +42,9 @@ public class MobileFoodFacilityService : IMobileFoodFacilityService
             }
         }
     }
-    
-    private static bool IsFoodFacilityApiDtoValid(MobileFoodFacilityApiDto dto)
+
+    public Task<PagedResult<MobileFoodFacility>> SearchClosestByFoodAsync(Point location, string? foodSearchString, PagingRequest pagingRequest)
     {
-        return dto is
-        {
-            Applicant: not null, 
-            Longitude: not null, 
-            Latitude: not null, 
-            Address: not null,
-            LocationDescription: not null, 
-            FoodItems: not null, 
-            ObjectId: not null
-        };
+        return _foodFacilityRepository.SearchClosestByFoodAsync(location, foodSearchString, pagingRequest);
     }
 }

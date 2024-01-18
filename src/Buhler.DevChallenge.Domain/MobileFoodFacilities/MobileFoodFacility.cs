@@ -1,4 +1,5 @@
-﻿using Buhler.DevChallenge.Integration.Dtos;
+﻿using Buhler.DevChallenge.Domain.Geography;
+using Buhler.DevChallenge.Integration.Dtos;
 using NetTopologySuite.Geometries;
 
 namespace Buhler.DevChallenge.Domain.MobileFoodFacilities;
@@ -12,22 +13,25 @@ public class MobileFoodFacility
 
     public MobileFoodFacility(MobileFoodFacilityApiDto dto)
     {
-        var gf = NetTopologySuite.NtsGeometryServices.Instance.CreateGeometryFactory(4326);
+        if (!dto.IsValid())
+        {
+            throw new ArgumentException("DTO is invalid.");
+        }
         
-        LocationId = long.Parse(dto.ObjectId);
-        FacilityName = dto.Applicant;
-        LocationDescription = dto.LocationDescription;
-        Address = dto.Address;
-        FoodItems = dto.FoodItems;
+        LocationId = long.Parse(dto.ObjectId!);
+        FacilityName = dto.Applicant!;
+        LocationDescription = dto.LocationDescription!;
+        Address = dto.Address!;
+        FoodItems = dto.FoodItems!;
         FoodItemsSearchOptimized = FoodItems.ToLowerInvariant().Replace(" ", string.Empty);
-        Location = gf.CreatePoint(new Coordinate(double.Parse(dto.Longitude), double.Parse(dto.Latitude)));
+        Location = new LocationFactory().CreatePoint(double.Parse(dto.Longitude!), double.Parse(dto.Latitude!));
     }
     
-    public long LocationId { get; protected set; }
-    public string FacilityName { get; protected set; } = null!;
-    public string LocationDescription { get; protected set; } = null!;
-    public string Address { get; protected set; } = null!;
-    public string FoodItems { get; protected set; } = null!;
-    public string FoodItemsSearchOptimized { get; protected set; } = null!;
-    public Point Location { get; protected set; } = null!;
+    public long LocationId { get; protected init; }
+    public string FacilityName { get; protected init; } = null!;
+    public string LocationDescription { get; protected init; } = null!;
+    public string Address { get; protected init; } = null!;
+    public string FoodItems { get; protected init; } = null!;
+    public string FoodItemsSearchOptimized { get; protected init; } = null!;
+    public Point Location { get; protected init; } = null!;
 }

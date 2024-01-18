@@ -15,7 +15,7 @@ public class PagingRequestDto
     /// <summary>
     /// Page size. Default is 100.
     /// </summary>
-    public int PageSize { get; set; } = 100;
+    public int PageSize { get; set; } = 10;
 
     internal PagingRequest GetPagingRequest()
     {

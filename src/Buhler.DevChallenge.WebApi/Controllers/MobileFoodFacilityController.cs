@@ -1,13 +1,16 @@
 using Buhler.DevChallenge.Application.MobileFoodFacilities;
+using Buhler.DevChallenge.Domain.Geography;
+using Buhler.DevChallenge.Domain.MobileFoodFacilities;
+using Buhler.DevChallenge.WebApi.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Buhler.DevChallenge.WebApi.Controllers;
 
 /// <summary>
-/// Quizes controller.
+/// Mobile food facilities controller
 /// </summary>
 [ApiController]
-[Route("api/v1/mobile-food-facility")]
+[Route("api/v1/mobile-food-facilities")]
 public class MobileFoodFacilityController : ControllerBase
 {
     private readonly IMobileFoodFacilityService _mobileFoodFacilityService;
@@ -18,30 +21,37 @@ public class MobileFoodFacilityController : ControllerBase
     {
         _mobileFoodFacilityService = mobileFoodFacilityService;
     }
-
-    // /// <summary>
-    // /// Returns a list of quizes.
-    // /// </summary>
-    // /// <param name="quizCategory">Quiz category for filtering</param>
-    // /// <param name="pagingRequestDto">Paging request</param>
-    // /// <returns>Nothing</returns>
-    // /// <response code="200">Quizes were queried successfully</response>
-    // /// <response code="401">User is not logged in</response>
-    // [HttpGet]
-    // [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<QuizMetadataDto>))]
-    // [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = null!)]
-    // public async Task<ActionResult<IEnumerable<QuizMetadataDto>>> List([FromQuery] [Required] QuizCategory quizCategory, [FromQuery] PagingRequestDto pagingRequestDto)
-    // {
-    //     var quizes = await _quizesService.GetAllInCategoryAsync(quizCategory, pagingRequestDto.GetPagingRequest());
-    //
-    //     return Ok(quizes.Select(QuizMetadataDto.Create));
-    // }  
     
-    [HttpPost]
+    /// <summary>
+    /// Refreshes mobile food facility data from the source
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("source-data/refresh")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<MobileFoodFacility, MobileFoodFacilityDto>))]
     public async Task<ActionResult> RefreshData()
     {
         await _mobileFoodFacilityService.RefreshDataAsync();
         
         return Ok();
-    }  
+    }      
+    
+    /// <summary>
+    /// Finds mobile food facilities closest to the provided location based on user's food preferences
+    /// </summary>
+    /// <param name="latitude">Latitude serving as the query's base</param>
+    /// <param name="longitude">Longitude serving as the query's base</param>
+    /// <param name="food">requested food item. e.g. "hotdog". All results are returned if omitted.</param>
+    /// <param name="pagingRequestDto">Paging request</param>
+    /// <returns>Returns an array of mobile food facilities with paging info</returns>
+    [HttpGet("search")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PagedResultDto<MobileFoodFacility, MobileFoodFacilityDto>))]
+    public async Task<ActionResult<PagedResultDto<MobileFoodFacility, MobileFoodFacilityDto>>> 
+        SearchData([FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string food, [FromQuery] PagingRequestDto pagingRequestDto)
+    {
+        var location = new LocationFactory().CreatePoint(longitude, latitude);
+        
+        var data = await _mobileFoodFacilityService.SearchClosestByFoodAsync(location, food, pagingRequestDto.GetPagingRequest());
+        
+        return Ok(new PagedResultDto<MobileFoodFacility, MobileFoodFacilityDto>(data, MobileFoodFacilityDto.Create));
+    }
 }

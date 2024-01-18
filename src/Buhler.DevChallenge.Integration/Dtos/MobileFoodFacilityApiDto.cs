@@ -29,4 +29,19 @@ public class MobileFoodFacilityApiDto
 
     [JsonPropertyName("latitude")]
     public string? Latitude { get; set; }
+    
+    
+    public bool IsValid()
+    {
+        return this is
+        {
+            Applicant: not null, 
+            Longitude: not null, 
+            Latitude: not null, 
+            Address: not null,
+            LocationDescription: not null, 
+            FoodItems: not null, 
+            ObjectId: not null
+        };
+    }
 }
